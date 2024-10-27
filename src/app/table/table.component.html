@@ -1,0 +1,120 @@
+<dx-data-grid
+  *ngIf="data"
+  #dataGrid
+  [dataSource]="data"
+  [keyExpr]="isDataSource ? null : keyExpr"
+  [showBorders]="showBorders"
+  [showColumnLines]="showColumnLines"
+  [showRowLines]="showRowLines"
+  [showColumnHeaders]="showColumnHeaders"
+  [remoteOperations]="remoteOperations"
+  [(focusedRowKey)]="focusedRowKey"
+  [(focusedRowIndex)]="focusedRowIndex"
+  [focusedRowEnabled]="!editable"
+  [(selectedRowKeys)]="selectedRowKeys"
+  [autoNavigateToFocusedRow]="true"
+  [filterSyncEnabled]="true"
+  [disabled]="disabled"
+  [allowColumnResizing]="allowColumnResizing"
+  columnResizingMode="widget"
+  [repaintChangesOnly]="repaintChangesOnly"
+  [customizeColumns]="customizeColumns"
+  [errorRowEnabled]="false"
+  (onCellClick)="onCellClick($event)"
+  (onCellPrepared)="cellPrepared.emit($event)"
+  (onContentReady)="onContentReadyAsync($event)"
+  (onEditingStart)="editStart.emit($event)"
+  (onEditorPreparing)="editorPreparing.emit($event)"
+  (onEditorPrepared)="onEditorPrepared($event)"
+  (onInitialized)="onInitialized(dataGrid)"
+  (onInitNewRow)="onInitNewRow($event)"
+  (onKeyDown)="onKeyDown($event)"
+  (onOptionChanged)="onOptionChanged($event)"
+  (onRowUpdated)="onRowUpdated($event)"
+  (onRowPrepared)="onRowPrepared($event)"
+  (onRowValidating)="onRowValidating($event)"
+  (onRowInserted)="onRowInserted($event)"
+  (onRowInserting)="rowInserting.emit($event)"
+  (onRowRemoved)="onRowRemoved($event)"
+  (onContextMenuPreparing)="contextMenuPrepairing.emit($event)"
+  (onFocusedCellChanging)="focusedCellChanging.emit($event)"
+  height="300px"
+>
+  <dxo-paging [pageSize]="pageSize"></dxo-paging>
+  <dxo-scrolling
+    mode="virtual"
+    rowRenderingMode="virtual"
+    [preloadEnabled]="true"
+  ></dxo-scrolling>
+  <dxo-sorting
+    [mode]="sortMode"
+    [showSortIndexes]="showSortIndexes"
+  ></dxo-sorting>
+  <dxo-column-fixing [enabled]="allowColumnFixing"></dxo-column-fixing>
+  <dxo-filter-row [visible]="showFilter"></dxo-filter-row>
+  <dxo-search-panel
+    [visible]="showSearchPanel"
+    [width]="240"
+    placeholder="Search..."
+    [(text)]="searchPanelText"
+    [searchVisibleColumnsOnly]="true"
+  >
+  </dxo-search-panel>
+  <!-- i18n-placeholder="@@search..." -->
+
+  <dxo-row-dragging
+    *ngIf="allowReordering"
+    [allowReordering]="true"
+    [onReorder]="onReorder"
+    [showDragIcons]="showDragIcons"
+    dropFeedbackMode="push"
+    [dragDirection]="dragDirection"
+  ></dxo-row-dragging>
+
+  <dxo-editing
+    *ngIf="editable"
+    [mode]="editMode"
+    startEditAction="click"
+    [allowAdding]="allowAdding"
+    [allowUpdating]="allowUpdating"
+    [allowDeleting]="allowDeleting"
+    [selectTextOnEditStart]="false"
+    [useIcons]="true"
+    [texts]="editTexts"
+    [(changes)]="editData"
+    [confirmDelete]="confirmDelete"
+  ></dxo-editing>
+
+  <dxo-selection
+    *ngIf="showSelection"
+    [allowSelectAll]="allowSelectAll"
+    [selectAllMode]="selectAllMode"
+    [showCheckBoxesMode]="checkboxesMode"
+    [mode]="selectMode"
+  ></dxo-selection>
+
+  <dxo-keyboard-navigation
+    [enterKeyDirection]="enterKeyDirection"
+    [enterKeyAction]="enterKeyAction"
+    [editOnKeyPress]="editOnKeyPress"
+  >
+  </dxo-keyboard-navigation>
+
+  <dxo-grouping
+    *ngIf="grouped"
+    #expand
+    [autoExpandAll]="autoExpandGroups"
+    expandMode="rowClick"
+  ></dxo-grouping>
+  <dxo-group-panel
+    *ngIf="grouped"
+    [visible]="groupPanelVisible"
+  ></dxo-group-panel>
+
+  <dxo-load-panel
+    [enabled]="loadPanelEnabled"
+    [showIndicator]="false"
+  ></dxo-load-panel>
+
+  <ng-content></ng-content>
+</dx-data-grid>

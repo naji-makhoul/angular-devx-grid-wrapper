@@ -1,0 +1,51 @@
+<h5>Original code : https://stackblitz.com/edit/angular-11-dev-express-grid-wrapper-khtmsu?file=src%2Fapp%2Fdata.service.ts</h5>
+<h2>Array Data</h2>
+<exp-table [data]="data" showRowLines="true">
+  <exp-column dataField="entityId" caption="Entity Id"></exp-column>
+
+  <exp-column
+    dataField="description"
+    caption="Description"
+    cellTemplate="descriptionTemplate"
+  ></exp-column>
+  <div *dxTemplate="let data of 'descriptionTemplate'">
+    <span>{{ data.value }}</span>
+  </div>
+
+  <exp-column
+    dataField="nestedObject.nestedProperty"
+    caption="Nested Property"
+    editCellTemplate="editSequenceTemplate"
+  ></exp-column>
+  <div *dxTemplate="let row of 'editSequenceTemplate'">
+    <!-- any complex editing component could go here -->
+    <span>Editing: {{ row.value }}</span>
+  </div>
+</exp-table>
+
+<h2>Observable Data</h2>
+<exp-table
+  [data]="observableData"
+  [remoteOperations]="{ paging: true, sorting: true }"
+>
+  <exp-column dataField="entityId" caption="Entity Id"></exp-column>
+
+  <exp-column
+    dataField="description"
+    caption="Description"
+    cellTemplate="descriptionTemplate"
+  ></exp-column>
+  <div *dxTemplate="let data of 'descriptionTemplate'">
+    <span>{{ data.value }}</span>
+  </div>
+
+  <exp-column
+    dataField="nestedObject.nestedProperty"
+    caption="Nested Property"
+    editCellTemplate="editSequenceTemplate"
+  ></exp-column>
+  <div *dxTemplate="let row of 'editSequenceTemplate'">
+    <!-- any complex editing component could go here -->
+    <span>Editing: {{ row.value }}</span>
+  </div>
+</exp-table>
